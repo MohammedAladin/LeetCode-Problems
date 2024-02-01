@@ -25,8 +25,7 @@ LeetCode is a valuable platform for honing problem-solving skills, understanding
 
 To get started with this repository, follow these steps:
 
-1. **Clone the Repository**: Clone this repository to your local machine using the following command:
-     ```git clone https://github.com/yourusername/leetcode-daily-practice.git```
+1. **Clone the Repository**: Clone this repository to your local machine.
 
 2. **Explore the Problems**: Explore the `problems/` directory to find problems categorized by topic or difficulty level.
 
