@@ -42,7 +42,6 @@ class Solution {
             Arrays.fill(row, 0);
         }
 
-
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (word.charAt(0)== board[i][j] && check(i, j, new StringBuilder()))
