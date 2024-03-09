@@ -1,54 +1,52 @@
 class Solution {
-    int[][] visited = new int[10][10];
-    char[][] board;
-    String word;
+    int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     int n, m;
 
-    boolean check(int i, int j, StringBuilder s) {
-
-        if(i>=n || i<0 || j>=m || j<0 || visited[i][j]==1) return false;
-    
-        s.append(board[i][j]);
-        if (s.length() == word.length()) {
-            if (s.toString().equals(word)) {
-                return true;
-            }
-            return false;
-        }
-
-        visited[i][j] = 1;
-
-        boolean ret = false;
-        ret|=check(i + 1, j, new StringBuilder(s));
-        ret|=check(i - 1, j, new StringBuilder(s));
-        ret|=check(i, j + 1, new StringBuilder(s));
-        ret|=check(i, j - 1, new StringBuilder(s));
-
-        visited[i][j] = 0;
-
-        return ret;
-
-    }
     public boolean exist(char[][] board, String word) {
-
-
-        this.board = board;
-        this.word = word;
-
         n = board.length;
         m = board[0].length;
 
-        for (int[] row : visited) {
-            Arrays.fill(row, 0);
+        
+        if (search(board, word)){
+            return true;
         }
+    
+        return false;
+    }
 
-
+    private boolean search(char[][] board, String word) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (check(i, j, new StringBuilder()))
+                if (board[i][j] == word.charAt(0) && dfs(board, word, 0, i, j)) {
                     return true;
+                }
             }
         }
+        return false;
+    }
+
+    private boolean dfs(char[][] board, String word, int index, int i, int j) {
+        if (index == word.length()) {
+            return true;
+        }
+
+        if (i < 0 || i >= n || j < 0 || j >= m || board[i][j] != word.charAt(index)) {
+            return false;
+        }
+
+        char temp = board[i][j];
+        board[i][j] = '#'; 
+
+        for (int[] dir : directions) {
+            int ni = i + dir[0];
+            int nj = j + dir[1];
+            if (dfs(board, word, index + 1, ni, nj)) {
+                board[i][j] = temp; 
+                return true;
+            }
+        }
+
+        board[i][j] = temp;
         return false;
     }
 }
