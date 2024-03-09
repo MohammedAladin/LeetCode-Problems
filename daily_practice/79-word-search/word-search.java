@@ -1,31 +1,40 @@
-import java.util.Arrays;
-
 class Solution {
     int[][] visited = new int[10][10];
     char[][] board;
     String word;
     int n, m;
 
-    boolean check(int i, int j, int index) {
-        if (index == word.length())
-            return true;
+    boolean check(int i, int j, StringBuilder s) {
 
-        if (i < 0 || j < 0 || i >= n || j >= m || visited[i][j] == 1 || board[i][j] != word.charAt(index))
+        if(i>=n || i<0 || j>=m || j<0 || visited[i][j]==1) return false;
+    
+        s.append(board[i][j]);
+        if (s.length() == word.length()) {
+            if (s.toString().equals(word)) {
+                return true;
+            }
             return false;
+        }
 
         visited[i][j] = 1;
 
-        boolean ret = check(i + 1, j, index + 1) || check(i - 1, j, index + 1) ||
-                      check(i, j + 1, index + 1) || check(i, j - 1, index + 1);
+        boolean ret = false;
+        ret|=check(i + 1, j, new StringBuilder(s));
+        ret|=check(i - 1, j, new StringBuilder(s));
+        ret|=check(i, j + 1, new StringBuilder(s));
+        ret|=check(i, j - 1, new StringBuilder(s));
 
         visited[i][j] = 0;
 
         return ret;
-    }
 
+    }
     public boolean exist(char[][] board, String word) {
+
+
         this.board = board;
         this.word = word;
+
         n = board.length;
         m = board[0].length;
 
@@ -33,13 +42,13 @@ class Solution {
             Arrays.fill(row, 0);
         }
 
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (check(i, j, 0))
+                if (check(i, j, new StringBuilder()))
                     return true;
             }
         }
-
         return false;
     }
 }
