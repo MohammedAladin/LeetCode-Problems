@@ -1,35 +1,24 @@
+import java.util.Arrays;
+
 class Solution {
     public int minOperations(int[] nums, int k) {
-        int fXor = nums[0];
+        int fXor = Arrays.stream(nums).reduce((a, b) -> a ^ b).getAsInt();
 
-        for(int i = 1; i<nums.length; ++i){
-            fXor ^=nums[i];
-        }
+        String bitStringX = Integer.toBinaryString(fXor);
+        String bitStringK = Integer.toBinaryString(k);
 
-        String bitStringX = "";
-        String bitStringK = "";
+        // Pad with leading zeros to ensure both bit strings have the same length
+        int maxLength = Math.max(bitStringX.length(), bitStringK.length());
+        bitStringX = String.format("%" + maxLength + "s", bitStringX).replace(' ', '0');
+        bitStringK = String.format("%" + maxLength + "s", bitStringK).replace(' ', '0');
 
-        while (fXor > 0) {
-            bitStringX = (fXor & 1) + bitStringX;
-            fXor >>= 1;
-        }
-        while (k > 0) {
-            bitStringK = (k & 1) + bitStringK;
-            k >>= 1;
-        }
         int res = 0;
-       while (bitStringX.length() < 32) {
-    bitStringX = "0" + bitStringX;
-}
-while (bitStringK.length() < 32) {
-    bitStringK = "0" + bitStringK;
-}
-
-        for(int i = 0; i<bitStringK.length(); ++i){
-            if(bitStringK.charAt(i)!=bitStringX.charAt(i)) res++;
+        for (int i = 0; i < bitStringK.length(); ++i) {
+            if (bitStringK.charAt(i) != bitStringX.charAt(i)) {
+                res++;
+            }
         }
-
 
         return res;
-    }   
+    }
 }
