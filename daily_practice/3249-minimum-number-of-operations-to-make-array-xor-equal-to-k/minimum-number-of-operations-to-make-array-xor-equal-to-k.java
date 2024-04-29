@@ -7,9 +7,12 @@ class Solution {
         String bitStringX = Integer.toBinaryString(fXor);
         String bitStringK = Integer.toBinaryString(k);
 
-        int maxLength = Math.max(bitStringX.length(), bitStringK.length());
-        bitStringX = String.format("%" + maxLength + "s", bitStringX).replace(' ', '0');
-        bitStringK = String.format("%" + maxLength + "s", bitStringK).replace(' ', '0');
+        while (bitStringX.length() < 32) {
+            bitStringX = "0" + bitStringX;
+        }
+        while (bitStringK.length() < 32) {
+            bitStringK = "0" + bitStringK;
+        }
 
         int res = 0;
         for (int i = 0; i < bitStringK.length(); ++i) {
