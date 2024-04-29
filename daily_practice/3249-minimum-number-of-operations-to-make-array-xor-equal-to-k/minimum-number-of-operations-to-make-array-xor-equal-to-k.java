@@ -7,7 +7,6 @@ class Solution {
         String bitStringX = Integer.toBinaryString(fXor);
         String bitStringK = Integer.toBinaryString(k);
 
-        // Pad with leading zeros to ensure both bit strings have the same length
         int maxLength = Math.max(bitStringX.length(), bitStringK.length());
         bitStringX = String.format("%" + maxLength + "s", bitStringX).replace(' ', '0');
         bitStringK = String.format("%" + maxLength + "s", bitStringK).replace(' ', '0');
