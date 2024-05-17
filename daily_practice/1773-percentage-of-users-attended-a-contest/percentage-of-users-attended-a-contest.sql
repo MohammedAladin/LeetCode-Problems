@@ -1,4 +1,4 @@
-SELECT contest_id, COALESCE(ROUND(COUNT(contest_id)/(SELECT COUNT(*) FROM USERS)*100 ,2),0) AS percentage
+SELECT contest_id, ROUND(COUNT(contest_id)/(SELECT COUNT(*) FROM USERS)*100 ,2) AS percentage
 
 FROM Users u JOIN Register r
 ON u.user_id = r.user_id
